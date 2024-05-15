@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TheEventApp</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_agenda">Agenda</string>
+    <string name="menu_speakers">Speakers</string>
+    <string name="menu_badge">Badge</string>
+    <string name="menu_venue">Venue</string>
+    <string name="menu_brand">Brand Innovation</string>
+    <string name="menu_videos">Brand Videos</string>
+    <string name="menu_questions">Ask Questions</string>
+    <string name="menu_voting">Voting</string>
+    <string name="menu_social">Social Media</string>
+    <string name="menu_survey">Survey</string>
+    <string name="menu_cme">CME</string>
+    <string name="title_activity_auth">AuthActivity</string>
 </resources>

@@ -2,6 +2,7 @@ package com.demo.theeventapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,8 @@ class AuthActivity : ComponentActivity() {
                     LoginScreen({
                         startActivity( Intent(this, MainActivity::class.java))
                         finish()
+                    },{
+                        Toast.makeText(this, "Register Screen", Toast.LENGTH_SHORT).show()
                     })
                 }
             }

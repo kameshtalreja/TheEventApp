@@ -12,10 +12,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
@@ -23,9 +28,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.demo.theeventapp.R
 
 
@@ -41,16 +50,16 @@ fun DrawerContent(
             .statusBarsPadding()
     ) {
         DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_home), selected = selectedItem == R.string.menu_home, onClick = { onItemSelected(R.string.menu_home) })
-        DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_agenda), selected = selectedItem == R.string.menu_agenda, onClick = { onItemSelected(R.string.menu_agenda) })
-        DrawerItem(icon = Icons.Default.Person, text = stringResource(id = R.string.menu_speakers), selected = selectedItem == R.string.menu_speakers, onClick = { onItemSelected(R.string.menu_speakers) })
+        DrawerItem(icon = Icons.Default.Edit, text = stringResource(id = R.string.menu_agenda), selected = selectedItem == R.string.menu_agenda, onClick = { onItemSelected(R.string.menu_agenda) })
+        DrawerItem(icon = Icons.Default.Info, text = stringResource(id = R.string.menu_speakers), selected = selectedItem == R.string.menu_speakers, onClick = { onItemSelected(R.string.menu_speakers) })
         DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_badge), selected = selectedItem == R.string.menu_badge, onClick = { onItemSelected(R.string.menu_badge) })
         DrawerItem(icon = Icons.Default.Place, text = stringResource(id = R.string.menu_venue), selected = selectedItem == R.string.menu_venue, onClick = { onItemSelected(R.string.menu_venue) })
         DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_brand), selected = selectedItem == R.string.menu_brand, onClick = { onItemSelected(R.string.menu_brand) })
         DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_videos), selected = selectedItem == R.string.menu_videos, onClick = { onItemSelected(R.string.menu_videos) })
-        DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_questions), selected = selectedItem == R.string.menu_questions, onClick = { onItemSelected(R.string.menu_questions) })
-        DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_voting), selected = selectedItem == R.string.menu_voting, onClick = { onItemSelected(R.string.menu_voting) })
-        DrawerItem(icon = Icons.Default.Share, text = stringResource(id = R.string.menu_social), selected = selectedItem == R.string.menu_social, onClick = { onItemSelected(R.string.menu_social) })
-        DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_survey), selected = selectedItem == R.string.menu_survey, onClick = { onItemSelected(R.string.menu_survey) })
+        DrawerItem(icon = Icons.Default.Info, text = stringResource(id = R.string.menu_questions), selected = selectedItem == R.string.menu_questions, onClick = { onItemSelected(R.string.menu_questions) })
+        DrawerItem(icon = Icons.Default.FavoriteBorder, text = stringResource(id = R.string.menu_voting), selected = selectedItem == R.string.menu_voting, onClick = { onItemSelected(R.string.menu_voting) })
+        DrawerItem(icon = Icons.Default.AccountCircle, text = stringResource(id = R.string.menu_social), selected = selectedItem == R.string.menu_social, onClick = { onItemSelected(R.string.menu_social) })
+        DrawerItem(icon = Icons.Default.Star, text = stringResource(id = R.string.menu_survey), selected = selectedItem == R.string.menu_survey, onClick = { onItemSelected(R.string.menu_survey) })
         DrawerItem(icon = Icons.Default.Home, text = stringResource(id = R.string.menu_cme), selected = selectedItem == R.string.menu_cme, onClick = { onItemSelected(R.string.menu_cme) })
 
     }

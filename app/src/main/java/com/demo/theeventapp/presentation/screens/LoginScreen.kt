@@ -1,6 +1,9 @@
 package com.demo.theeventapp.presentation.screens
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,12 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +48,7 @@ import com.kamesh.newsapp.presentation.viewmodel.LoginViewModel
 @Composable
 fun LoginScreen(
     gotoHome : () -> Unit,
+    gotoRegister : () -> Unit,
     viewModel : LoginViewModel = hiltViewModel()
 ) {
 
@@ -55,22 +67,26 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = R.drawable.lldd),
             contentDescription = null,
             modifier = Modifier
-                .height(60.dp)
+                .height(80.dp)
                 .clip(shape = MaterialTheme.shapes.medium),
             contentScale = ContentScale.FillWidth
         )
         Text(
-            text = "Login",
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            text = "LOG IN",
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .fillMaxWidth(),
         )
         EmailTextField()
         PasswordTextField()
         LoginButton(viewModel,userEmail,userPassword)
         ForgotPasswordText()
+        RegisterText(onCreateAction = {})
     }
 
     if (res.isLoading){
@@ -81,7 +97,11 @@ fun LoginScreen(
 
     if (res.error.isNotBlank()){
         Box(modifier = Modifier.fillMaxSize()){
-            Text(text = res.error, modifier = Modifier.align(Alignment.Center))
+            Toast.makeText(
+                LocalContext.current,
+                res.error,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -92,6 +112,8 @@ fun LoginScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
 fun EmailTextField() {
     var emailValue by remember { mutableStateOf(TextFieldValue()) }
@@ -103,10 +125,16 @@ fun EmailTextField() {
         singleLine = true,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.Transparent,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black
+        )
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTextField() {
     var passwordValue by remember { mutableStateOf(TextFieldValue()) }
@@ -118,7 +146,16 @@ fun PasswordTextField() {
         singleLine = true,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp),
+        visualTransformation = PasswordVisualTransformation(),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.Transparent,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black
+        ),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password
+        )
     )
 }
 
@@ -126,10 +163,12 @@ fun PasswordTextField() {
 fun LoginButton(viewModel: LoginViewModel, userEmail: String, userPassword: String) {
     Button(
         onClick = { viewModel.loginEvent(userEmail, userPassword) },
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9fc5ff)),
         modifier = Modifier
             .fillMaxWidth()
+            .height(65.dp)
             .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(2.dp))
     ) {
         Text(text = "Login", color = Color.White)
     }
@@ -147,8 +186,23 @@ fun ForgotPasswordText() {
     )
 }
 
-@Preview
 @Composable
-fun PreviewLoginScreen() {
-//    LoginScreen()
+fun RegisterText( onCreateAction : () -> Unit) {
+    Text(
+        text = "Or Create an Account",
+        color = Color.Blue,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clickable {
+                onCreateAction()
+            },
+        textAlign = TextAlign.Center
+    )
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewLoginScreen() {
+//    LoginScreen({ Log.d("TAG", "PreviewLoginScreen: ")})
+//}

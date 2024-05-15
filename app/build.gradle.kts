@@ -80,6 +80,8 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:$hilt")
 //    annotationProcessor("androidx.room:room-compiler:$hilt")
 
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
 
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 

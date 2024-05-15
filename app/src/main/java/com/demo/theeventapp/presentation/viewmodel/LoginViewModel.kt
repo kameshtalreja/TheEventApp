@@ -21,9 +21,7 @@ class LoginViewModel @Inject constructor(
 
     val loginResponse = mutableStateOf(LoginStateHolder())
 
-    init {
-//        loginEvent()
-    }
+
 
     fun loginEvent(userEmail: String?, userPassword: String?) {
         loginUseCase(LoginRequest(
